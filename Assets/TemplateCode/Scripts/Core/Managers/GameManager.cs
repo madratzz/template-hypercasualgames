@@ -2,87 +2,44 @@
 using TemplateCode.Scripts.Core.Controllers;
 using CustomUtilities;
 using Sirenix.OdinInspector;
+using TemplateCode.Scripts.Core.StateMachine;
+using TemplateCode.Scripts.Core.StateMachine.GameManagerStates;
 using UnityEngine;
 
 namespace TemplateCode.Scripts.Core.Managers
 {
 	public class GameManager : Singleton<GameManager>
 	{
-		public static Action<GameState> OnStateChanged;
-
-		[BoxGroup("Game State Info")] [EnumToggleButtons] [SerializeField]
-		private GameState currentState;
-
-		public GameState CurrentState => currentState;
-
-
-		private void OnEnable()
-		{
-			OnStateChanged += OnGameStateChanged;
-		}
-
-		private void OnDisable()
-		{
-			OnStateChanged -= OnGameStateChanged;
-		}
+		private GameStateMachine m_gameStateMachine;
 
 		// Start is called before the first frame update
 		private void Start()
 		{
-			ChangeGameState(GameState.SPLASH);
+			m_gameStateMachine = new GameStateMachine();
+
+			//States
+			var splash = new SplashState(this);
+			var consent = new ConsentState(this);
+			var mainMenu = new MainMenuState(this);
+
+			//Adding Transitions
+			At(splash,consent, CanShowConsent());
+			At(splash,mainMenu,CanShowMainMenu());
+
+			m_gameStateMachine.SetState(splash);
+
+			void At(IState from, IState to, Func<bool> condition) =>
+				m_gameStateMachine.AddTransition(from, to, condition);
+
+			//Adding Conditions for Transitions
+			Func<bool> HasSplashEnded() => ()=>splash.HasSplashEnded;
+			Func<bool>UserConsentGiven()=>()=> PlayerPrefs.GetInt(GameConstants.UserConsent,0) == 1;
+			Func<bool> CanShowConsent()=> ()=>splash.HasSplashEnded && PlayerPrefs.GetInt(GameConstants.UserConsent,0)!=1;
+			Func<bool> CanShowMainMenu() => () =>
+				splash.HasSplashEnded && PlayerPrefs.GetInt(GameConstants.UserConsent, 0) == 1;
 		}
 
-		public void ChangeGameState(GameState gameState)
-		{
-			currentState = gameState;
-			OnStateChanged?.Invoke(gameState);
-		}
-
-
-		//CallBacks
-		public void OnGameStateChanged(GameState gameState)
-		{
-			switch (gameState)
-			{
-				case GameState.SPLASH:
-					UIController.instance.ShowPanel(UIPanelType.Splash);
-					break;
-				case GameState.CONSENT:
-					break;
-				case GameState.MAINMENU:
-					break;
-				case GameState.TUTORIAL:
-					break;
-				case GameState.GAMEPLAY:
-					break;
-				case GameState.REWARD:
-					break;
-				case GameState.BONUSLEVEL:
-					break;
-				case GameState.LEVELCOMPLETE:
-					break;
-				case GameState.LEVELFAILED:
-					break;
-				case GameState.REVIEVE:
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(gameState), gameState, null);
-			}
-		}
+		private void Update() => m_gameStateMachine.Tick();
 	}
 
-
-	public enum GameState
-	{
-		SPLASH,
-		CONSENT,
-		MAINMENU,
-		TUTORIAL,
-		GAMEPLAY,
-		REWARD,
-		BONUSLEVEL,
-		LEVELCOMPLETE,
-		LEVELFAILED,
-		REVIEVE
-	}
 }

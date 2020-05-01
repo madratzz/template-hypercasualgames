@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using CustomUtilities;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace TemplateCode.Scripts.Core.Controllers
 {
@@ -87,6 +88,7 @@ namespace TemplateCode.Scripts.Core.Controllers
 		[Button(ButtonSizes.Medium)]
 		public void ShowPanel(UIPanelType type)
 		{
+			Debug.Log($"Showing Panel: {type.ToString()}");
 			HidePanel(m_currentPanelType);
 			m_currentPanelType = type;
 			var gamePanel = m_uiPanels.First(panel => panel.type == type);

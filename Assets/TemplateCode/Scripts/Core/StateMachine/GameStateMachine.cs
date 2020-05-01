@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace TemplateCode.Scripts.Core.StateMachine
 {
-	public class StateMachine
+	public class GameStateMachine
 	{
 		private IState m_currentState;
+
 
 		private Dictionary<Type, List<Transition>> m_transitions = new Dictionary<Type, List<Transition>>();
 		private List<Transition> m_currentTransitions = new List<Transition>();
@@ -19,7 +22,7 @@ namespace TemplateCode.Scripts.Core.StateMachine
 			if (transition != null)
 				SetState(transition.To);
 
-			m_currentState?.Tick();
+			m_currentState?.Update();
 		}
 
 		public void SetState(IState state)
@@ -54,7 +57,7 @@ namespace TemplateCode.Scripts.Core.StateMachine
 			m_anyTransitions.Add(new Transition(state, predicate));
 		}
 
-		private class Transition
+		public class Transition
 		{
 			public Func<bool> Condition { get; }
 			public IState To { get; }
@@ -68,15 +71,10 @@ namespace TemplateCode.Scripts.Core.StateMachine
 
 		private Transition GetTransition()
 		{
-			foreach (var transition in m_anyTransitions)
-				if (transition.Condition())
-					return transition;
+			foreach (var transition in m_anyTransitions.Where(transition => transition.Condition()))
+				return transition;
 
-			foreach (var transition in m_currentTransitions)
-				if (transition.Condition())
-					return transition;
-
-			return null;
+			return m_currentTransitions.FirstOrDefault(transition => transition.Condition());
 		}
 
 	}
