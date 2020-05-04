@@ -8,11 +8,14 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 	internal class ConsentState:IState
 	{
 		private readonly GameManager m_gameManager;
+		private readonly UIPanel m_panel;
+
 		private readonly Button m_consentAgreeButton;
 
-		public ConsentState(GameManager gameManager, Button consentAgreeButton)
+		public ConsentState(GameManager gameManager,UIPanel panel, Button consentAgreeButton)
 		{
 			m_gameManager = gameManager;
+			m_panel = panel;
 			m_consentAgreeButton = consentAgreeButton;
 		}
 
@@ -23,7 +26,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		public void OnEnter()
 		{
-			UIController.Instance.ShowPanel(UIPanelType.Consent);
+			UIController.Instance.ShowPanel(m_panel.Type);
 			//Bind Buttons
 			m_consentAgreeButton.onClick.AddListener(OnConsentAgree);
 		}
@@ -35,6 +38,17 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 			m_consentAgreeButton.onClick.RemoveListener(OnConsentAgree);
 		}
 
-		private static void OnConsentAgree() => PlayerPrefs.SetInt(GameConstants.UserConsent, 1);
+		private void OnConsentAgree()
+		{
+			m_panel.OnBackwardsComplete+=()=>PlayerPrefs.SetInt(GameConstants.UserConsentAgreed, 1);
+			HidePanel();
+		}
+
+
+		private void HidePanel()
+		{
+			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
+			m_panel.HidePanel();
+		}
 	}
 }

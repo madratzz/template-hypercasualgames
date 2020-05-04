@@ -16,6 +16,11 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 		public Action OnForwardComplete;
 		[SerializeField]private UIPanelType type;
 
+		private void OnValidate()
+		{
+			GetAllTweens();
+		}
+
 		public UIPanelType Type
 		{
 			get => type;

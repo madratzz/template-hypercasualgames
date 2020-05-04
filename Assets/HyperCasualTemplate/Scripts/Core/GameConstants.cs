@@ -2,12 +2,12 @@
 
 public class GameConstants : MonoBehaviour
 {
-	public static float SplashDuration = 4f;
+	//public static float SplashDuration = 4f; //Not used since GameManager State Machine Implementation
 
-	public static string GameName = "King's Choices";
-	public static string StudioName = "Ozi Technology";
+	public static readonly string GameName = "King's Choices";
+	public static readonly string StudioName = "Ozi Technology";
 
-	public static string UserConsent = "UserConsent";
+	public static readonly string UserConsentAgreed = "UserConsentAgreed"; //0 = NO, 1 = YES
 	public static float UserConsentClickDuration = 0.15f;
 
 
@@ -21,9 +21,9 @@ public class GameConstants : MonoBehaviour
 	public static string PrivacyPolicyFooter = " I agree to the terms of " + StudioName + " and their Partners. " +
 	                                           "This is to confirm that i'm older than 16 years or have my guardians permission.";
 
-	public static string TutorialShown = "TutorialShown";
+	public static readonly string TutorialCompleted = "TutorialCompleted"; //0 = NO, 1 = YES
 
-	public static string VC1 = "VC1";
+	public static string Vc1 = "VC1";
 
 	public static string LevelNumberPref = "LevelNumber";
 }
