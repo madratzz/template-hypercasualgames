@@ -7,13 +7,13 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
 	internal class BaseMenuState:IState
 	{
-		protected readonly GameManager m_gameManager;
-		protected readonly UIPanel m_panel;
+		protected readonly GameManager GameManager;
+		protected readonly UiPanel Panel;
 
-		public BaseMenuState(GameManager gameManager, UIPanel panel)
+		public BaseMenuState(GameManager gameManager, UiPanel panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
+			GameManager = gameManager;
+			Panel = panel;
 		}
 
 		public virtual void Update()
@@ -25,7 +25,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		{
 			Debug.Log($"Entering State {GetType()}");
 			BindClickSound();
-			UIController.Instance.ShowPanel(m_panel.Type);
+			UIController.Instance.ShowPanel(Panel.Type);
 		}
 
 		public virtual void OnExit()
@@ -36,14 +36,14 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		protected void HidePanel()
 		{
-			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
-			m_panel.HidePanel();
+			Panel.backwardsComplete += () => Panel.gameObject.SetActive(false);
+			Panel.HidePanel();
 		}
 
 		private void BindClickSound()
 		{
 			//Bind Sounds
-			var buttons = m_panel.GetComponentsInChildren<Button>();
+			var buttons = Panel.GetComponentsInChildren<Button>();
 			foreach (var button in buttons)
 			{
 				button.onClick.AddListener(SoundController.Instance.PlayButtonSound);
@@ -53,7 +53,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		private void UnBindClickSound()
 		{
 			///Unbind Sounds
-			var buttons = m_panel.GetComponentsInChildren<Button>();
+			var buttons = Panel.GetComponentsInChildren<Button>();
 			foreach (var button in buttons)
 			{
 				button.onClick.RemoveListener(SoundController.Instance.PlayButtonSound);

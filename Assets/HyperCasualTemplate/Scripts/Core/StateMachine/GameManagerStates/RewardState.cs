@@ -8,7 +8,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 	{
 		private readonly Button m_collectButton;
 
-		public RewardState(GameManager gameManager, UIPanel panel, Button collectButton):base(gameManager, panel)
+		public RewardState(GameManager gameManager, UiPanel panel, Button collectButton):base(gameManager, panel)
 		{
 			m_collectButton = collectButton;
 		}

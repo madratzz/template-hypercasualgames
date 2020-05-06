@@ -15,49 +15,49 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 		private UIPanelType m_currentPanelType, m_previousPanelType;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel consentPanel;
+		private UiPanel consentPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel tutorialPanel;
+		private UiPanel tutorialPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel gamePlayPanel;
+		private UiPanel gamePlayPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel levelCompletePanel;
+		private UiPanel levelCompletePanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel levelFailPanel;
+		private UiPanel levelFailPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel mainMenuPanel;
+		private UiPanel mainMenuPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel revivePanel;
+		private UiPanel revivePanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel rewardPanel;
+		private UiPanel rewardPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel settingsPanel;
+		private UiPanel settingsPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel splashPanel;
+		private UiPanel splashPanel;
 
 		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
-		private UIPanel pausePanel;
+		private UiPanel pausePanel;
 
-		public UIPanel ConsentPanel => consentPanel;
-		public UIPanel TutorialPanel => tutorialPanel;
-		public UIPanel GamePlayPanel => gamePlayPanel;
-		public UIPanel LevelCompletePanel => levelCompletePanel;
-		public UIPanel LevelFailPanel => levelFailPanel;
-		public UIPanel MainMenuPanel => mainMenuPanel;
-		public UIPanel RevivePanel => revivePanel;
-		public UIPanel RewardPanel => rewardPanel;
-		public UIPanel SettingsPanel => settingsPanel;
-		public UIPanel PausePanel => pausePanel;
-		public UIPanel SplashPanel => splashPanel;
+		public UiPanel ConsentPanel => consentPanel;
+		public UiPanel TutorialPanel => tutorialPanel;
+		public UiPanel GamePlayPanel => gamePlayPanel;
+		public UiPanel LevelCompletePanel => levelCompletePanel;
+		public UiPanel LevelFailPanel => levelFailPanel;
+		public UiPanel MainMenuPanel => mainMenuPanel;
+		public UiPanel RevivePanel => revivePanel;
+		public UiPanel RewardPanel => rewardPanel;
+		public UiPanel SettingsPanel => settingsPanel;
+		public UiPanel PausePanel => pausePanel;
+		public UiPanel SplashPanel => splashPanel;
 
 		#endregion
 
@@ -137,7 +137,7 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 		#endregion
 
 		[BoxGroup("Utilities")]
-		[ShowInInspector] private UIPanel[] m_uiPanels;
+		[ShowInInspector] private UiPanel[] m_uiPanels;
 		[BoxGroup("Utilities")]
 		[ShowInInspector] private Button[] m_buttons;
 
@@ -206,7 +206,7 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 				pausePanel.Type = UIPanelType.Pause;
 			}
 
-			m_uiPanels = GetComponentsInChildren<UIPanel>(true);
+			m_uiPanels = GetComponentsInChildren<UiPanel>(true);
 
 			#endregion
 
@@ -291,7 +291,7 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 		protected override void Awake()
 		{
 			base.Awake();
-			m_uiPanels = GetComponentsInChildren<UIPanel>(true);
+			m_uiPanels = GetComponentsInChildren<UiPanel>(true);
 		}
 
 		[Button(ButtonSizes.Medium)]
@@ -310,7 +310,7 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 			m_previousPanelType = type;
 			var gamePanel = m_uiPanels.First(panel => panel.Type == type);
 			gamePanel.HidePanel();
-			gamePanel.OnBackwardsComplete += DisablePanel;
+			gamePanel.backwardsComplete += DisablePanel;
 		}
 
 		private void DisablePanel()

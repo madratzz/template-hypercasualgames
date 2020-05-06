@@ -11,7 +11,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		private readonly Button m_RemoveAdsButton;
 		private readonly Button m_settingsButton;
 
-		public MainMenuState(GameManager gameManager,UIPanel panel, Button playButton, Button settingsButton, Button removeAdsButton) : base(gameManager,panel)
+		public MainMenuState(GameManager gameManager,UiPanel panel, Button playButton, Button settingsButton, Button removeAdsButton) : base(gameManager,panel)
 		{
 			m_playButton = playButton;
 			m_settingsButton = settingsButton;
@@ -67,14 +67,14 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		private void OnPlayButton()
 		{
 			m_playButton.interactable = false;
-			m_panel.OnBackwardsComplete += () => HasPressedPlay = true;
+			Panel.backwardsComplete += () => HasPressedPlay = true;
 			HidePanel();
 		}
 
 		private void OnSettingsButton()
 		{
 			m_settingsButton.interactable = false;
-			m_panel.OnBackwardsComplete += () => HasPressedSettings = true;
+			Panel.backwardsComplete += () => HasPressedSettings = true;
 			HidePanel();
 		}
 

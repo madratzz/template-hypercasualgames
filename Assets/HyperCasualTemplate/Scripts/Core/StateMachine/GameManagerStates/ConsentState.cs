@@ -9,7 +9,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 	{
 		private readonly Button m_consentAgreeButton;
 
-		public ConsentState(GameManager gameManager,UIPanel panel, Button consentAgreeButton):base(gameManager, panel)
+		public ConsentState(GameManager gameManager,UiPanel panel, Button consentAgreeButton):base(gameManager, panel)
 		{
 			m_consentAgreeButton = consentAgreeButton;
 		}
@@ -34,15 +34,15 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		private void OnConsentAgree()
 		{
-			m_panel.OnBackwardsComplete+=()=>PlayerPrefs.SetInt(GameConstants.UserConsentAgreed, 1);
+			Panel.backwardsComplete+=()=>PlayerPrefs.SetInt(GameConstants.UserConsentAgreed, 1);
 			HidePanel();
 		}
 
 
 		private void HidePanel()
 		{
-			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
-			m_panel.HidePanel();
+			Panel.backwardsComplete += () => Panel.gameObject.SetActive(false);
+			Panel.HidePanel();
 		}
 	}
 }

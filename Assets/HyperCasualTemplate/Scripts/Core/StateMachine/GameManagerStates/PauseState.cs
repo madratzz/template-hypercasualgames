@@ -15,18 +15,18 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		public bool HasPressedResume { get; private set; }
 		public bool HasPressedRestart { get; private set; }
 		public bool HasPressedMainMenu { get; private set; }
-		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton):base(gameManager, panel)
+		public PauseState(GameManager gameManager,UiPanel panel, Button resumeButton):base(gameManager, panel)
 		{
 			m_resumeButton = resumeButton;
 		}
 
-		public PauseState(GameManager gameManager, UIPanel panel, Button resumeButton, Button restartButton):base(gameManager, panel)
+		public PauseState(GameManager gameManager, UiPanel panel, Button resumeButton, Button restartButton):base(gameManager, panel)
 		{
 			m_resumeButton = resumeButton;
 			m_restartButton = restartButton;
 		}
 
-		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton, Button restartButton, Button mainMenuButton):base(gameManager, panel)
+		public PauseState(GameManager gameManager,UiPanel panel, Button resumeButton, Button restartButton, Button mainMenuButton):base(gameManager, panel)
 		{
 			m_resumeButton = resumeButton;
 			m_restartButton = restartButton;

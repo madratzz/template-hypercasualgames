@@ -14,11 +14,11 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		public bool HasWon { get; private set; }
 		public bool HasLost { get; private set; }
 
-		public GamePlayState(GameManager gameManager, UIPanel panel):base(gameManager, panel)
+		public GamePlayState(GameManager gameManager, UiPanel panel):base(gameManager, panel)
 		{
 		}
 
-		public GamePlayState(GameManager gameManager, UIPanel panel, Button pauseButton):base(gameManager, panel)
+		public GamePlayState(GameManager gameManager, UiPanel panel, Button pauseButton):base(gameManager, panel)
 		{
 			m_pauseButton = pauseButton;
 		}
@@ -29,7 +29,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 			
 			InputController.Instance.EnableInput();
 
-			m_gameManager.StartGame();
+			GameManager.StartGame();
 
 			//Bind Buttons
 			m_pauseButton.onClick.AddListener(OnPauseButton);
@@ -52,14 +52,14 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		private void OnPauseButton()
 		{
-			m_panel.OnBackwardsComplete += () => HasPressedPause = true;
+			Panel.backwardsComplete += () => HasPressedPause = true;
 			HidePanel();
 		}
 
 		private void HidePanel()
 		{
-			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
-			m_panel.HidePanel();
+			Panel.backwardsComplete += () => Panel.gameObject.SetActive(false);
+			Panel.HidePanel();
 		}
 	}
 }

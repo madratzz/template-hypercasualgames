@@ -5,18 +5,19 @@ using UnityEngine;
 
 namespace HyperCasualTemplate.Scripts.Core.Controllers
 {
-	public class UIPanel : MonoBehaviour
+	public class UiPanel : MonoBehaviour
 	{
 		[SerializeField] private DOTweenAnimation[] animations;
 
 		private int m_counter;
 		private int m_direction;
 
-		public Action OnBackwardsComplete;
-		public Action OnForwardComplete;
-		[SerializeField]private UIPanelType type;
+		public Action backwardsComplete;
+		public Action forwardComplete;
+		[SerializeField] private UIPanelType type;
 
-		[TabGroup("Debug")] [SerializeField]private bool isDebugMode;
+		[TabGroup("Debug")] [SerializeField] private bool isDebugMode;
+
 		private void OnValidate()
 		{
 			GetAllTweens();
@@ -57,15 +58,15 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 
 			if (m_direction == 1)
 			{
-				if(isDebugMode)
+				if (isDebugMode)
 					Debug.Log("ForwardComplete");
-				OnForwardComplete?.Invoke();
+				forwardComplete?.Invoke();
 			}
 			else
 			{
-				if(isDebugMode)
+				if (isDebugMode)
 					Debug.Log("BackwardsComplete");
-				OnBackwardsComplete?.Invoke();
+				backwardsComplete?.Invoke();
 			}
 		}
 
@@ -81,7 +82,7 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 			{
 				var tweens = animations[0].GetTweens();
 				foreach (var tween in tweens) tween.OnComplete(IncrementCounter);
-				if(isDebugMode)
+				if (isDebugMode)
 					Debug.Log("PlayingForwards");
 				foreach (var doTweenAnimation in animations) doTweenAnimation.DOPlayForward();
 			}
@@ -102,7 +103,7 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 			{
 				var tweens = animations[0].GetTweens();
 				foreach (var tween in tweens) tween.OnRewind(IncrementCounter);
-				if(isDebugMode)
+				if (isDebugMode)
 					Debug.Log("PlayingBackwards");
 				foreach (var doTweenAnimation in animations) doTweenAnimation.DOPlayBackwards();
 			}

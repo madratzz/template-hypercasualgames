@@ -11,7 +11,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		public bool HasTutorialFinished { get; private set; }
 
-		public TutorialState(GameManager gameManager, UIPanel panel, Button tutorialDoneButton):base(gameManager, panel)
+		public TutorialState(GameManager gameManager, UiPanel panel, Button tutorialDoneButton):base(gameManager, panel)
 		{
 			m_tutorialDoneButton = tutorialDoneButton;
 		}

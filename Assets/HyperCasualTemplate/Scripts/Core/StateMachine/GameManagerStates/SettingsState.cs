@@ -10,7 +10,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		public bool HasPressedBackButton { get; private set; }
 
-		public SettingsState(GameManager gameManager, UIPanel panel, Button backButton):base(gameManager, panel)
+		public SettingsState(GameManager gameManager, UiPanel panel, Button backButton):base(gameManager, panel)
 		{
 			m_backButton = backButton;
 		}

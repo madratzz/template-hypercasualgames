@@ -11,7 +11,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		public bool HasSplashEnded => m_hasSplashEnded;
 
-		public SplashState(GameManager gameManager, UIPanel panel):base(gameManager, panel)
+		public SplashState(GameManager gameManager, UiPanel panel):base(gameManager, panel)
 		{
 		}
 
@@ -19,12 +19,12 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		{
 			base.OnEnter();
 
-			m_panel.OnForwardComplete += () =>
+			Panel.forwardComplete += () =>
 			{
-				UIController.Instance.AfterWait(() => m_panel.HidePanel(), 1.5f);
+				UIController.Instance.AfterWait(() => Panel.HidePanel(), 1.5f);
 			};
 
-			m_panel.OnBackwardsComplete+=()=>m_hasSplashEnded = true;
+			Panel.backwardsComplete+=()=>m_hasSplashEnded = true;
 
 			//Init Ad Network Here
 		}

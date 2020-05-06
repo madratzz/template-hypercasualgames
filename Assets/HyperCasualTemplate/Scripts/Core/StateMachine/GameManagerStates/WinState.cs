@@ -8,7 +8,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 	{
 		private readonly Button m_continueButton;
 
-		public WinState(GameManager gameManager, UIPanel panel, Button button):base(gameManager, panel)
+		public WinState(GameManager gameManager, UiPanel panel, Button button):base(gameManager, panel)
 		{
 			m_continueButton = button;
 		}
