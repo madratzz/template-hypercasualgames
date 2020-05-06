@@ -5,34 +5,28 @@ using UnityEngine.UI;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class ConsentState:IState
+	internal class ConsentState:BaseMenuState
 	{
-		private readonly GameManager m_gameManager;
-		private readonly UIPanel m_panel;
-
 		private readonly Button m_consentAgreeButton;
 
-		public ConsentState(GameManager gameManager,UIPanel panel, Button consentAgreeButton)
+		public ConsentState(GameManager gameManager,UIPanel panel, Button consentAgreeButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_consentAgreeButton = consentAgreeButton;
 		}
 
-		public void Update()
-		{
 
-		}
-
-		public void OnEnter()
+		public override void OnEnter()
 		{
-			UIController.Instance.ShowPanel(m_panel.Type);
+			base.OnEnter();
+
 			//Bind Buttons
 			m_consentAgreeButton.onClick.AddListener(OnConsentAgree);
 		}
 
-		public void OnExit()
+		public override void OnExit()
 		{
+			base.OnExit();
+
 			PlayerPrefs.Save();
 			//UnBindButtons
 			m_consentAgreeButton.onClick.RemoveListener(OnConsentAgree);

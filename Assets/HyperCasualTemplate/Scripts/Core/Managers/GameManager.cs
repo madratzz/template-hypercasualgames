@@ -90,7 +90,7 @@ namespace HyperCasualTemplate.Scripts.Core.Managers
 			Func<bool> CanPauseGame() => () => gameplay.HasPressedPause;
 			Func<bool> CanResumeGame() => () => pause.HasPressedResume;
 			Func<bool> CanRestartGame() => () => pause.HasPressedRestart;
-			Func<bool> PauseToMainMenu() => () => pause.HasPressedMaineMenu;
+			Func<bool> PauseToMainMenu() => () => pause.HasPressedMainMenu;
 		}
 
 		private void Update() => m_gameStateMachine.Update();

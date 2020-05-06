@@ -5,37 +5,36 @@ using UnityEngine.UI;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class TutorialState:IState
+	internal class TutorialState:BaseMenuState
 	{
-		private readonly GameManager m_gameManager;
-		private readonly UIPanel m_panel;
 		private readonly Button m_tutorialDoneButton;
 
 		public bool HasTutorialFinished { get; private set; }
 
-		public TutorialState(GameManager gameManager, UIPanel panel, Button tutorialDoneButton)
+		public TutorialState(GameManager gameManager, UIPanel panel, Button tutorialDoneButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_tutorialDoneButton = tutorialDoneButton;
 		}
 
-		public void Update()
-		{
-		}
 
-		public void OnEnter()
+		public override void OnEnter()
 		{
-			UIController.Instance.ShowPanel(m_panel.Type);
+			base.OnEnter();
+
+			InputController.Instance.EnableInput();
 
 			//BindButtons
 			m_tutorialDoneButton.onClick.AddListener(OnTutorialDone);
 
 		}
 
-		public void OnExit()
+		public override void OnExit()
 		{
+			base.OnExit();
+			
+			InputController.Instance.DisableInput();
 			PlayerPrefs.Save();
+
 			m_tutorialDoneButton.onClick.RemoveListener(OnTutorialDone);
 		}
 
@@ -43,12 +42,6 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		{
 			HasTutorialFinished = true;
 			PlayerPrefs.SetInt(GameConstants.TutorialCompleted,1);
-		}
-
-		private void HidePanel()
-		{
-			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
-			m_panel.HidePanel();
 		}
 	}
 }

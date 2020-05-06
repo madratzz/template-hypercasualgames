@@ -25,7 +25,8 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 		public static Action OnTap;
 
 		[BoxGroup("Settings")]
-		public bool isInputEnabled;
+		[SerializeField]
+		private bool isInputEnabled;
 
 		[BoxGroup("Debugging")]
 		[SerializeField] private bool debugEnabled;
@@ -105,6 +106,16 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 			fingerSwipeLeft.OnFinger.RemoveListener(OnFingerSwipeLeft);
 			fingerSwipeRight.OnFinger.RemoveListener(OnFingerSwipeRight);
 			fingerTap.OnFinger.RemoveListener(OnFingerTap);
+		}
+
+		public void EnableInput()
+		{
+			isInputEnabled = true;
+		}
+
+		public void DisableInput()
+		{
+			isInputEnabled = false;
 		}
 	}
 }

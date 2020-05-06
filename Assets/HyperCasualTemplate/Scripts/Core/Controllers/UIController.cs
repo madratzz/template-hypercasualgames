@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CustomUtilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -6,43 +7,44 @@ using UnityEngine.UI;
 
 namespace HyperCasualTemplate.Scripts.Core.Controllers
 {
+	[RequireComponent(typeof(Button))]
 	public class UIController : Singleton<UIController>
 	{
 		#region Panels
 
 		private UIPanelType m_currentPanelType, m_previousPanelType;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel consentPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel tutorialPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel gamePlayPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel levelCompletePanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel levelFailPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel mainMenuPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel revivePanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel rewardPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel settingsPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel splashPanel;
 
-		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField]
+		[BoxGroup("UIPanels", centerLabel: true)] [SerializeField][Required]
 		private UIPanel pausePanel;
 
 		public UIPanel ConsentPanel => consentPanel;
@@ -62,79 +64,82 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 
 		#region Buttons
 
-		[BoxGroup("ConsentMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_consentAgreedButton;
+		[BoxGroup("ConsentMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button consentAgreedButton;
 
-		[BoxGroup("ConsentMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_consentPrivacyPolicyButton;
+		[BoxGroup("ConsentMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button consentPrivacyPolicyButton;
 
-		[BoxGroup("MainMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_mainMenuPlayButton;
+		[BoxGroup("MainMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button mainMenuPlayButton;
 
-		[BoxGroup("MainMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_mainMenuSettingsButton;
+		[BoxGroup("MainMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button mainMenuSettingsButton;
 
-		[BoxGroup("MainMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_mainMenuRemoveAdsButton;
+		[BoxGroup("MainMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button mainMenuRemoveAdsButton;
 
-		[BoxGroup("SettingsMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_settingsBackButton;
+		[BoxGroup("SettingsMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button settingsBackButton;
 
-		[BoxGroup("TutorialMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_tutorialDoneButton;
+		[BoxGroup("TutorialMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button tutorialDoneButton;
 
-		[BoxGroup("GameplayMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_gameplayPauseButton;
+		[BoxGroup("GameplayMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button gameplayPauseButton;
 
-		[BoxGroup("PauseMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_pauseResumeButton;
+		[BoxGroup("PauseMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button pauseResumeButton;
 
-		[BoxGroup("PauseMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_pauseRestartButton;
+		[BoxGroup("PauseMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button pauseRestartButton;
 
-		[BoxGroup("PauseMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_pauseMainMenuButton;
+		[BoxGroup("PauseMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button pauseMainMenuButton;
 
-		[BoxGroup("WinMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_winContinueButton;
+		[BoxGroup("WinMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button winContinueButton;
 
-		[BoxGroup("FailMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_failContinueButton;
+		[BoxGroup("FailMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button failContinueButton;
 
-		[BoxGroup("ReviveMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_reviveContinueButton;
+		[BoxGroup("ReviveMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button reviveContinueButton;
 
-		[BoxGroup("RewardMenuButtons", centerLabel: true)] [SerializeField]
-		private Button m_rewardCollectButton;
+		[BoxGroup("RewardMenuButtons", centerLabel: true)] [SerializeField][Required]
+		private Button rewardCollectButton;
 
-		public Button ConsentAgreedButton => m_consentAgreedButton;
-		public Button ConsentPrivacyPolicyButton => m_consentPrivacyPolicyButton;
-		public Button MainMenuPlayButton => m_mainMenuPlayButton;
-		public Button MainMenuSettingsButton => m_mainMenuSettingsButton;
-		public Button MainMenuRemoveAdsButton => m_mainMenuRemoveAdsButton;
-		public Button SettingsBackButton => m_settingsBackButton;
+		public Button ConsentAgreedButton => consentAgreedButton;
+		public Button ConsentPrivacyPolicyButton => consentPrivacyPolicyButton;
+		public Button MainMenuPlayButton => mainMenuPlayButton;
+		public Button MainMenuSettingsButton => mainMenuSettingsButton;
+		public Button MainMenuRemoveAdsButton => mainMenuRemoveAdsButton;
+		public Button SettingsBackButton => settingsBackButton;
 
-		public Button GameplayPauseButton => m_gameplayPauseButton;
+		public Button GameplayPauseButton => gameplayPauseButton;
 
-		public Button PauseResumeButton => m_pauseResumeButton;
+		public Button PauseResumeButton => pauseResumeButton;
 
-		public Button PauseRestartButton => m_pauseRestartButton;
+		public Button PauseRestartButton => pauseRestartButton;
 
-		public Button PauseMainMenuButton => m_pauseMainMenuButton;
+		public Button PauseMainMenuButton => pauseMainMenuButton;
 
-		public Button WinContinueButton => m_winContinueButton;
+		public Button WinContinueButton => winContinueButton;
 
-		public Button FailContinueButton => m_failContinueButton;
+		public Button FailContinueButton => failContinueButton;
 
-		public Button ReviveContinueButton => m_reviveContinueButton;
+		public Button ReviveContinueButton => reviveContinueButton;
 
-		public Button RewardCollectButton => m_rewardCollectButton;
+		public Button RewardCollectButton => rewardCollectButton;
 
-		public Button TutorialDoneButton => m_tutorialDoneButton;
+		public Button TutorialDoneButton => tutorialDoneButton;
 
 		#endregion
 
+		[BoxGroup("Utilities")]
 		[ShowInInspector] private UIPanel[] m_uiPanels;
+		[BoxGroup("Utilities")]
+		[ShowInInspector] private Button[] m_buttons;
 
 		[Button(ButtonSizes.Medium)]
 		private void ValidatePanels()
@@ -207,76 +212,78 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 
 			#region ButtonValidation
 
-			if (m_consentAgreedButton)
+			if (consentAgreedButton)
 			{
-				m_consentAgreedButton.name = "Consent_Agreed_Btn";
+				consentAgreedButton.name = "Consent_Agreed_Btn";
 			}
 
-			if (m_consentPrivacyPolicyButton)
+			if (consentPrivacyPolicyButton)
 			{
-				m_consentPrivacyPolicyButton.name = "Consent_PrivacyPolicy_Btn";
+				consentPrivacyPolicyButton.name = "Consent_PrivacyPolicy_Btn";
 			}
 
-			if (m_mainMenuPlayButton)
+			if (mainMenuPlayButton)
 			{
-				m_mainMenuPlayButton.name = "MainMenu_Play_Btn";
+				mainMenuPlayButton.name = "MainMenu_Play_Btn";
 			}
 
-			if (m_mainMenuSettingsButton)
+			if (mainMenuSettingsButton)
 			{
-				m_mainMenuSettingsButton.name = "MainMenu_Settings_Btn";
+				mainMenuSettingsButton.name = "MainMenu_Settings_Btn";
 			}
 
-			if (m_settingsBackButton)
+			if (settingsBackButton)
 			{
-				m_settingsBackButton.name = "Settings_Back_Btn";
+				settingsBackButton.name = "Settings_Back_Btn";
 			}
 
-			if (m_tutorialDoneButton)
+			if (tutorialDoneButton)
 			{
-				m_tutorialDoneButton.name = "Tutorial_Done_Btn";
+				tutorialDoneButton.name = "Tutorial_Done_Btn";
 			}
 
-			if (m_gameplayPauseButton)
+			if (gameplayPauseButton)
 			{
-				m_gameplayPauseButton.name = "Gameplay_Pause_Btn";
+				gameplayPauseButton.name = "Gameplay_Pause_Btn";
 			}
 
-			if (m_pauseResumeButton)
+			if (pauseResumeButton)
 			{
-				m_pauseResumeButton.name = "Pause_Resume_Btn";
+				pauseResumeButton.name = "Pause_Resume_Btn";
 			}
 
-			if (m_pauseRestartButton)
+			if (pauseRestartButton)
 			{
-				m_pauseRestartButton.name = "Pause_Restart_Btn";
+				pauseRestartButton.name = "Pause_Restart_Btn";
 			}
 
-			if (m_pauseMainMenuButton)
+			if (pauseMainMenuButton)
 			{
-				m_pauseMainMenuButton.name = "Pause_MainMenu_Btn";
+				pauseMainMenuButton.name = "Pause_MainMenu_Btn";
 			}
 
-			if (m_reviveContinueButton)
+			if (reviveContinueButton)
 			{
-				m_reviveContinueButton.name = "Revive_Continue_Btn";
+				reviveContinueButton.name = "Revive_Continue_Btn";
 			}
 
-			if (m_winContinueButton)
+			if (winContinueButton)
 			{
-				m_winContinueButton.name = "Win_Continue_Btn";
+				winContinueButton.name = "Win_Continue_Btn";
 			}
 
 
-			if (m_failContinueButton)
+			if (failContinueButton)
 			{
-				m_failContinueButton.name = "Fail_Continue_Btn";
+				failContinueButton.name = "Fail_Continue_Btn";
 			}
 
-			if (m_rewardCollectButton)
+			if (rewardCollectButton)
 			{
-				m_rewardCollectButton.name = "Reward_Collect_Btn";
+				rewardCollectButton.name = "Reward_Collect_Btn";
 			}
+
+			m_buttons = GetComponentsInChildren<Button>(true);
 
 			#endregion
 		}

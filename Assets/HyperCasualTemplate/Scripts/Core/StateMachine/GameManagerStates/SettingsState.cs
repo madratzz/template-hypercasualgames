@@ -4,35 +4,28 @@ using UnityEngine.UI;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class SettingsState : IState
+	internal class SettingsState : BaseMenuState
 	{
-		private readonly GameManager m_gameManager;
-		private readonly UIPanel m_panel;
-
 		private readonly Button m_backButton;
 
 		public bool HasPressedBackButton { get; private set; }
 
-		public SettingsState(GameManager gameManager, UIPanel panel, Button backButton)
+		public SettingsState(GameManager gameManager, UIPanel panel, Button backButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_backButton = backButton;
 		}
 
-		public void Update()
-		{
-		}
 
-		public void OnEnter()
+		public override void OnEnter()
 		{
-			UIController.Instance.ShowPanel(m_panel.Type);
+			base.OnEnter();
 			//BindButtons
 			m_backButton.onClick.AddListener(OnBackButton);
 		}
 
-		public void OnExit()
+		public override void OnExit()
 		{
+			base.OnExit();
 			m_backButton.onClick.RemoveListener(OnBackButton);
 
 			//Reset State
@@ -43,12 +36,6 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		{
 			HasPressedBackButton = true;
 			HidePanel();
-		}
-
-		private void HidePanel()
-		{
-			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
-			m_panel.HidePanel();
 		}
 	}
 }

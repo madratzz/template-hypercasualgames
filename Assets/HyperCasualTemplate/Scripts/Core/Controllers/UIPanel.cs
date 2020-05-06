@@ -16,6 +16,7 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 		public Action OnForwardComplete;
 		[SerializeField]private UIPanelType type;
 
+		[TabGroup("Debug")] [SerializeField]private bool isDebugMode;
 		private void OnValidate()
 		{
 			GetAllTweens();
@@ -56,12 +57,14 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 
 			if (m_direction == 1)
 			{
-				Debug.Log("ForwardComplete");
+				if(isDebugMode)
+					Debug.Log("ForwardComplete");
 				OnForwardComplete?.Invoke();
 			}
 			else
 			{
-				Debug.Log("BackwardsComplete");
+				if(isDebugMode)
+					Debug.Log("BackwardsComplete");
 				OnBackwardsComplete?.Invoke();
 			}
 		}
@@ -78,8 +81,8 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 			{
 				var tweens = animations[0].GetTweens();
 				foreach (var tween in tweens) tween.OnComplete(IncrementCounter);
-
-				Debug.Log("PlayingForwards");
+				if(isDebugMode)
+					Debug.Log("PlayingForwards");
 				foreach (var doTweenAnimation in animations) doTweenAnimation.DOPlayForward();
 			}
 			catch (Exception e)
@@ -99,8 +102,8 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 			{
 				var tweens = animations[0].GetTweens();
 				foreach (var tween in tweens) tween.OnRewind(IncrementCounter);
-
-				Debug.Log("PlayingBackwards");
+				if(isDebugMode)
+					Debug.Log("PlayingBackwards");
 				foreach (var doTweenAnimation in animations) doTweenAnimation.DOPlayBackwards();
 			}
 			catch (Exception e)

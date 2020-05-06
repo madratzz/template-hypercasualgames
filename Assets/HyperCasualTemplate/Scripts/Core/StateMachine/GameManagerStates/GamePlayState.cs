@@ -5,11 +5,8 @@ using UnityEngine.UI;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class GamePlayState:IState
+	internal class GamePlayState:BaseMenuState
 	{
-		private readonly GameManager m_gameManager;
-		private readonly UIPanel m_panel;
-
 		private readonly Button m_pauseButton;
 
 
@@ -17,26 +14,20 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		public bool HasWon { get; private set; }
 		public bool HasLost { get; private set; }
 
-		public GamePlayState(GameManager gameManager, UIPanel panel)
+		public GamePlayState(GameManager gameManager, UIPanel panel):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 		}
 
-		public GamePlayState(GameManager gameManager, UIPanel panel, Button pauseButton)
+		public GamePlayState(GameManager gameManager, UIPanel panel, Button pauseButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_pauseButton = pauseButton;
 		}
-		public void Update()
-		{
 
-		}
-
-		public void OnEnter()
+		public override void OnEnter()
 		{
-			UIController.Instance.ShowPanel(m_panel.Type);
+			base.OnEnter();
+			
+			InputController.Instance.EnableInput();
 
 			m_gameManager.StartGame();
 
@@ -44,8 +35,12 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 			m_pauseButton.onClick.AddListener(OnPauseButton);
 		}
 
-		public void OnExit()
+		public override void OnExit()
 		{
+			base.OnExit();
+			
+			InputController.Instance.DisableInput();
+
 			//UnBindButtons
 			m_pauseButton.onClick.RemoveListener(OnPauseButton);
 

@@ -6,50 +6,37 @@ using Button = UnityEngine.UI.Button;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class PauseState:IState
+	internal class PauseState:BaseMenuState
 	{
-		private readonly GameManager m_gameManager;
-		private readonly UIPanel m_panel;
-
 		private readonly Button m_resumeButton;
 		private readonly Button m_restartButton;
 		private readonly Button m_mainMenuButton;
 
 		public bool HasPressedResume { get; private set; }
 		public bool HasPressedRestart { get; private set; }
-		public bool HasPressedMaineMenu { get; private set; }
-		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton)
+		public bool HasPressedMainMenu { get; private set; }
+		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_resumeButton = resumeButton;
 		}
 
-		public PauseState(GameManager gameManager, UIPanel panel, Button resumeButton, Button restartButton)
+		public PauseState(GameManager gameManager, UIPanel panel, Button resumeButton, Button restartButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_resumeButton = resumeButton;
 			m_restartButton = restartButton;
 		}
 
-		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton, Button restartButton, Button mainMenuButton)
+		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton, Button restartButton, Button mainMenuButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_resumeButton = resumeButton;
 			m_restartButton = restartButton;
 			m_mainMenuButton = mainMenuButton;
 		}
 
-		public void Update()
-		{
 
-		}
-
-		public void OnEnter()
+		public override void OnEnter()
 		{
-			UIController.Instance.ShowPanel(m_panel.Type);
+			base.OnEnter();
 
 			Time.timeScale = 0;
 			//Bind Buttons
@@ -66,8 +53,10 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 			}
 		}
 
-		public void OnExit()
+		public override void OnExit()
 		{
+			base.OnExit();
+			
 			Time.timeScale = 1;
 			//UnBind Buttons
 			m_resumeButton.onClick.RemoveListener(OnResumeButton);
@@ -85,7 +74,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 			//ResetState
 			HasPressedRestart = false;
 			HasPressedResume = false;
-			HasPressedMaineMenu = false;
+			HasPressedMainMenu = false;
 		}
 
 		private void OnResumeButton()
@@ -102,14 +91,9 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		private void OnMainMenuButton()
 		{
-			HasPressedMaineMenu = true;
+			HasPressedMainMenu = true;
+			Debug.Log(HasPressedMainMenu);
 			HidePanel();
-		}
-
-		private void HidePanel()
-		{
-			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
-			m_panel.HidePanel();
 		}
 	}
 }

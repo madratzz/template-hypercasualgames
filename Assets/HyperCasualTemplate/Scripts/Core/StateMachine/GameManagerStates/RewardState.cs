@@ -4,32 +4,14 @@ using UnityEngine.UI;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class RewardState:IState
+	internal class RewardState:BaseMenuState
 	{
-		private readonly GameManager m_gameManager;
-		private readonly UIPanel m_panel;
-
 		private readonly Button m_collectButton;
 
-		public RewardState(GameManager gameManager, UIPanel panel, Button collectButton)
+		public RewardState(GameManager gameManager, UIPanel panel, Button collectButton):base(gameManager, panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_collectButton = collectButton;
 		}
 
-		public void Update()
-		{
-		}
-
-		public void OnEnter()
-		{
-			UIController.Instance.ShowPanel(m_panel.Type);
-
-		}
-
-		public void OnExit()
-		{
-		}
 	}
 }

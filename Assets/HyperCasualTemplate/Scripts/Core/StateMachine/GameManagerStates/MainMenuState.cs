@@ -1,22 +1,18 @@
 ﻿using HyperCasualTemplate.Scripts.Core.Controllers;
 using HyperCasualTemplate.Scripts.Core.Managers;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class MainMenuState : IState
+	internal class MainMenuState : BaseMenuState
 	{
-		private readonly GameManager m_gameManager;
-		private readonly UIPanel m_panel;
-
 		private readonly Button m_playButton;
 		private readonly Button m_RemoveAdsButton;
 		private readonly Button m_settingsButton;
 
-		public MainMenuState(GameManager gameManager,UIPanel panel, Button playButton, Button settingsButton, Button removeAdsButton)
+		public MainMenuState(GameManager gameManager,UIPanel panel, Button playButton, Button settingsButton, Button removeAdsButton) : base(gameManager,panel)
 		{
-			m_gameManager = gameManager;
-			m_panel = panel;
 			m_playButton = playButton;
 			m_settingsButton = settingsButton;
 			m_RemoveAdsButton = removeAdsButton;
@@ -26,26 +22,41 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		public bool HasPressedPlay { get; private set; }
 
-		public void Update()
-		{
-		}
 
-		public void OnEnter()
+		public override void OnEnter()
 		{
-			UIController.Instance.ShowPanel(m_panel.Type);
+			base.OnEnter();
 
 			//Bind Buttons
 			m_playButton.onClick.AddListener(OnPlayButton);
 			m_settingsButton.onClick.AddListener(OnSettingsButton);
 			m_RemoveAdsButton.onClick.AddListener(OnRemoveAdsButton);
+
+			//BindClickSound();
+
+			if (m_playButton==null)
+			{
+				Debug.Log("PlayBtnNull");
+			}
+
+			if (SoundController.Instance==null)
+			{
+				Debug.Log("SoundControllerNull");
+			}
+
+
 		}
 
-		public void OnExit()
+		public override void OnExit()
 		{
+			base.OnExit();
+
 			//UnBind Buttons
 			m_playButton.onClick.RemoveListener(OnPlayButton);
 			m_settingsButton.onClick.RemoveListener(OnSettingsButton);
 			m_RemoveAdsButton.onClick.RemoveListener(OnRemoveAdsButton);
+
+			//UnBindClickSound();
 
 			//Reset State
 			HasPressedPlay = false;
@@ -70,12 +81,6 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		private void OnRemoveAdsButton()
 		{
 			//Make a call to InAPP Manager
-		}
-
-		private void HidePanel()
-		{
-			m_panel.OnBackwardsComplete += () => m_panel.gameObject.SetActive(false);
-			m_panel.HidePanel();
 		}
 	}
 }
