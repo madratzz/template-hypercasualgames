@@ -1,17 +1,20 @@
 ﻿using HyperCasualTemplate.Scripts.Core.Controllers;
+using HyperCasualTemplate.Scripts.Core.Controllers.UIControllers;
 using HyperCasualTemplate.Scripts.Core.Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using CameraType = HyperCasualTemplate.Scripts.Core.Controllers.CameraType;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
-	internal class TutorialState:BaseMenuState
+	internal class TutorialState : BaseMenuState
 	{
 		private readonly Button m_tutorialDoneButton;
 
 		public bool HasTutorialFinished { get; private set; }
 
-		public TutorialState(GameManager gameManager, UiPanel panel, Button tutorialDoneButton):base(gameManager, panel)
+		public TutorialState(GameManager gameManager, UIPanel panel, Button tutorialDoneButton) : base(gameManager,
+			panel)
 		{
 			m_tutorialDoneButton = tutorialDoneButton;
 		}
@@ -23,15 +26,16 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 			InputController.Instance.EnableInput();
 
+			GameManager.StartTutorial();
+
 			//BindButtons
 			m_tutorialDoneButton.onClick.AddListener(OnTutorialDone);
-
 		}
 
 		public override void OnExit()
 		{
 			base.OnExit();
-			
+
 			InputController.Instance.DisableInput();
 			PlayerPrefs.Save();
 
@@ -41,7 +45,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		private void OnTutorialDone()
 		{
 			HasTutorialFinished = true;
-			PlayerPrefs.SetInt(GameConstants.TutorialCompleted,1);
+			PlayerPrefs.SetInt(GameConstants.TutorialCompleted, 1);
 		}
 	}
 }

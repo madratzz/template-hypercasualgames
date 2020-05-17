@@ -1,7 +1,8 @@
 ﻿using CustomUtilities;
 using HyperCasualTemplate.Scripts.Core.Controllers;
+using HyperCasualTemplate.Scripts.Core.Controllers.UIControllers;
 using HyperCasualTemplate.Scripts.Core.Managers;
-using UnityEngine;
+using CameraType = HyperCasualTemplate.Scripts.Core.Controllers.CameraType;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
@@ -11,13 +12,16 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		public bool HasSplashEnded => m_hasSplashEnded;
 
-		public SplashState(GameManager gameManager, UiPanel panel):base(gameManager, panel)
+		public SplashState(GameManager gameManager, UIPanel panel):base(gameManager, panel)
 		{
 		}
 
 		public override void OnEnter()
 		{
 			base.OnEnter();
+
+			//Camera Setting
+			CameraController.Instance.ShowCamera(CameraType.MainMenu);
 
 			Panel.forwardComplete += () =>
 			{

@@ -1,7 +1,9 @@
 ﻿using HyperCasualTemplate.Scripts.Core.Controllers;
+using HyperCasualTemplate.Scripts.Core.Controllers.UIControllers;
 using HyperCasualTemplate.Scripts.Core.Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using CameraType = HyperCasualTemplate.Scripts.Core.Controllers.CameraType;
 
 namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 {
@@ -11,7 +13,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		private readonly Button m_RemoveAdsButton;
 		private readonly Button m_settingsButton;
 
-		public MainMenuState(GameManager gameManager,UiPanel panel, Button playButton, Button settingsButton, Button removeAdsButton) : base(gameManager,panel)
+		public MainMenuState(GameManager gameManager,UIPanel panel, Button playButton, Button settingsButton, Button removeAdsButton) : base(gameManager,panel)
 		{
 			m_playButton = playButton;
 			m_settingsButton = settingsButton;
@@ -26,6 +28,14 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		public override void OnEnter()
 		{
 			base.OnEnter();
+
+			//Reset State
+			HasPressedPlay = false;
+			HasPressedSettings = false;
+
+
+			//Camera Setting
+			CameraController.Instance.ShowCamera(CameraType.MainMenu);
 
 			//Bind Buttons
 			m_playButton.onClick.AddListener(OnPlayButton);
@@ -66,6 +76,9 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 
 		private void OnPlayButton()
 		{
+			//Camera Setting
+			CameraController.Instance.ShowCamera(CameraType.Gameplay);
+
 			m_playButton.interactable = false;
 			Panel.backwardsComplete += () => HasPressedPlay = true;
 			HidePanel();

@@ -3,33 +3,29 @@ using CustomUtilities;
 using Lean.Touch;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace HyperCasualTemplate.Scripts.Core.Controllers
 {
 	public class InputController : Singleton<InputController>
 	{
 		//LeanTouch Hooks
-		[SerializeField]
-		private LeanTouch touch;
-		[SerializeField]
-		private LeanFingerSwipe fingerSwipeLeft;
-		[SerializeField]
-		private LeanFingerSwipe fingerSwipeRight;
-		[SerializeField]
-		private LeanFingerTap fingerTap;
+		[SerializeField] private LeanTouch touch;
+		[SerializeField] private LeanFingerSwipe fingerSwipeLeft;
+		[SerializeField] private LeanFingerSwipe fingerSwipeRight;
+		[SerializeField] private LeanFingerTap fingerTap;
 
 
 		//InputManager Events
-		public static Action OnSwipeLeft;
-		public static Action OnSwipeRight;
-		public static Action OnTap;
+		public UnityEvent OnSwipeLeft;
+		public UnityEvent OnSwipeRight;
+		public UnityEvent OnTap;
 
-		[BoxGroup("Settings")]
-		[SerializeField]
+		[BoxGroup("Settings")] [SerializeField]
 		private bool isInputEnabled;
 
-		[BoxGroup("Debugging")]
-		[SerializeField] private bool debugEnabled;
+		[BoxGroup("Debugging")] [SerializeField]
+		private bool debugEnabled;
 
 		// Start is called before the first frame update
 		void Start()
@@ -39,6 +35,24 @@ namespace HyperCasualTemplate.Scripts.Core.Controllers
 			fingerSwipeLeft.OnFinger.AddListener(OnFingerSwipeLeft);
 			fingerSwipeRight.OnFinger.AddListener(OnFingerSwipeRight);
 			fingerTap.OnFinger.AddListener(OnFingerTap);
+		}
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.LeftArrow))
+			{
+				OnSwipeLeft?.Invoke();
+			}
+
+			if (Input.GetKeyDown(KeyCode.RightArrow))
+			{
+				OnSwipeRight?.Invoke();
+			}
+
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				OnTap?.Invoke();
+			}
 		}
 
 		[Button(ButtonSizes.Medium)]

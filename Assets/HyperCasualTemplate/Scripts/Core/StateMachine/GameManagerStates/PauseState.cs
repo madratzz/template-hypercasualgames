@@ -1,4 +1,5 @@
 ﻿using HyperCasualTemplate.Scripts.Core.Controllers;
+using HyperCasualTemplate.Scripts.Core.Controllers.UIControllers;
 using HyperCasualTemplate.Scripts.Core.Managers;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,18 +16,18 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		public bool HasPressedResume { get; private set; }
 		public bool HasPressedRestart { get; private set; }
 		public bool HasPressedMainMenu { get; private set; }
-		public PauseState(GameManager gameManager,UiPanel panel, Button resumeButton):base(gameManager, panel)
+		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton):base(gameManager, panel)
 		{
 			m_resumeButton = resumeButton;
 		}
 
-		public PauseState(GameManager gameManager, UiPanel panel, Button resumeButton, Button restartButton):base(gameManager, panel)
+		public PauseState(GameManager gameManager, UIPanel panel, Button resumeButton, Button restartButton):base(gameManager, panel)
 		{
 			m_resumeButton = resumeButton;
 			m_restartButton = restartButton;
 		}
 
-		public PauseState(GameManager gameManager,UiPanel panel, Button resumeButton, Button restartButton, Button mainMenuButton):base(gameManager, panel)
+		public PauseState(GameManager gameManager,UIPanel panel, Button resumeButton, Button restartButton, Button mainMenuButton):base(gameManager, panel)
 		{
 			m_resumeButton = resumeButton;
 			m_restartButton = restartButton;
@@ -56,7 +57,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 		public override void OnExit()
 		{
 			base.OnExit();
-			
+
 			Time.timeScale = 1;
 			//UnBind Buttons
 			m_resumeButton.onClick.RemoveListener(OnResumeButton);

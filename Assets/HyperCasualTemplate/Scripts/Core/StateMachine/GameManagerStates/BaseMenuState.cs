@@ -1,4 +1,5 @@
 ﻿using HyperCasualTemplate.Scripts.Core.Controllers;
+using HyperCasualTemplate.Scripts.Core.Controllers.UIControllers;
 using HyperCasualTemplate.Scripts.Core.Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +9,9 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 	internal class BaseMenuState:IState
 	{
 		protected readonly GameManager GameManager;
-		protected readonly UiPanel Panel;
+		protected readonly UIPanel Panel;
 
-		public BaseMenuState(GameManager gameManager, UiPanel panel)
+		public BaseMenuState(GameManager gameManager, UIPanel panel)
 		{
 			GameManager = gameManager;
 			Panel = panel;
@@ -34,7 +35,7 @@ namespace HyperCasualTemplate.Scripts.Core.StateMachine.GameManagerStates
 			UnBindClickSound();
 		}
 
-		protected void HidePanel()
+		protected virtual void HidePanel()
 		{
 			Panel.backwardsComplete += () => Panel.gameObject.SetActive(false);
 			Panel.HidePanel();
